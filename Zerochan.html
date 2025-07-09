@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ZEROCHAN :: Главная</title>
+    <style type="text/css">
+        /* === ОСНОВНОЙ СТИЛЬ ВЕБКОР === */
+        body {
+            background-color: #F0E0D0;
+            font-family: 'Courier New', monospace;
+            color: #800000;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABUSURBVGhD7cExAQAwDMCg+zfdm1go+JNJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiTpB3sBBpgAZzQ3AAAAAElFTkSuQmCC');
+        }
+        
+        a {
+            color: #0066CC;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+            color: #CC1100;
+        }
+        
+        #container {
+            width: 80%;
+            max-width: 1000px;
+            margin: 10px auto;
+            border: 2px solid #800000;
+            background-color: #F0E0D0;
+            padding: 10px;
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.2);
+        }
+        
+        #header {
+            background-color: #F0E0D0;
+            border-bottom: 1px dashed #800000;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        #header h1 {
+            margin: 0;
+            font-size: 28px;
+            color: #800000;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+            letter-spacing: 1px;
+        }
+        
+        #header p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            color: #800000;
+        }
+        
+        /* === НАВИГАЦИЯ === */
+        .nav {
+            text-align: center;
+            padding: 10px;
+            border-bottom: 1px dashed #800000;
+            background-color: #E8D8C8;
+        }
+        
+        .nav a {
+            margin: 0 10px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .nav a.current {
+            color: #CC1100;
+            text-decoration: underline;
+        }
+        
+        /* === ГЛАВНАЯ СТРАНИЦА === */
+        .board-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .board-category {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #800000;
+            background-color: #E8D8C8;
+            width: 30%;
+            min-width: 250px;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+        }
+        
+        .board-category h3 {
+            margin: 0 0 10px 0;
+            color: #0066CC;
+            border-bottom: 1px dashed #800000;
+            padding-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .board-links {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .board-link {
+            margin: 5px;
+            font-size: 14px;
+        }
+        
+        /* === ТРЕДЫ И ПОСТЫ === */
+        .thread {
+            margin: 15px 0;
+            border: 1px solid #800000;
+            padding: 10px;
+            background-color: #E8D8C8;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+        }
+        
+        .post {
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #800000;
+            padding-bottom: 10px;
+            position: relative;
+        }
+        
+        .post-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .post-name {
+            color: #0066CC;
+        }
+        
+        .post-trip {
+            color: #CC1100;
+        }
+        
+        .post-id {
+            color: #888888;
+        }
+        
+        .post-id a {
+            color: #888888;
+        }
+        
+        .post-file {
+            float: left;
+            margin-right: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .post-file img {
+            border: 1px solid #800000;
+            max-width: 200px;
+            max-height: 200px;
+            image-rendering: pixelated;
+        }
+        
+        .post-file-info {
+            font-size: 12px;
+            color: #800000;
+        }
+        
+        .post-message {
+            margin-left: 220px;
+            word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .mod-panel {
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            font-size: 12px;
+        }
+        
+        .mod-panel a {
+            color: #CC1100;
+            margin-left: 5px;
+        }
+        
+        /* === ФОРМА ОТВЕТА === */
+        .reply-form {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #800000;
+            background-color: #E8D8C8;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+        }
+        
+        .form-table {
+            width: 100%;
+        }
+        
+        .form-label {
+            width: 100px;
+            text-align: right;
+            padding-right: 10px;
+            vertical-align: top;
+            font-size: 14px;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 100px;
+            background-color: #F0E0D0;
+            color: #800000;
+            border: 1px solid #800000;
+            font-family: 'Courier New', monospace;
+            padding: 5px;
+            font-size: 14px;
+        }
+        
+        input[type="text"], input[type="password"] {
+            background-color: #F0E0D0;
+            color: #800000;
+            border: 1px solid #800000;
+            font-family: 'Courier New', monospace;
+            padding: 5px;
+            width: 200px;
+            font-size: 14px;
+        }
+        
+        input[type="submit"] {
+            background-color: #F0E0D0;
+            color: #800000;
+            border: 1px solid #800000;
+            font-family: 'Courier New', monospace;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #800000;
+            color: #F0E0D0;
+        }
+        
+        /* === ФУТЕР === */
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #800000;
+            margin-top: 15px;
+            border-top: 1px dashed #800000;
+            padding-top: 10px;
+        }
+        
+        /* === МОДАЛЬНЫЕ ОКНА === */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: #F0E0D0;
+            border: 2px solid #800000;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.3);
+        }
+        
+        .modal-title {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #CC1100;
+            border-bottom: 1px dashed #800000;
+            padding-bottom: 5px;
+        }
+        
+        .modal-input {
+            width: 100%;
+            margin-bottom: 15px;
+            background-color: #F0E0D0;
+            color: #800000;
+            border: 1px solid #800000;
+            padding: 5px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .modal-buttons {
+            text-align: right;
+        }
+        
+        .modal-button {
+            background-color: #F0E0D0;
+            color: #800000;
+            border: 1px solid #800000;
+            padding: 5px 15px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .modal-button:hover {
+            background-color: #800000;
+            color: #F0E0D0;
+        }
+        
+        /* === СТАТИСТИКА === */
+        .stats {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: #E8D8C8;
+            border: 1px solid #800000;
+            padding: 5px 10px;
+            font-size: 12px;
+            z-index: 100;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+        }
+        
+        /* === ВЕБКОР ЭЛЕМЕНТЫ === */
+        .pixel-art {
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
+        
+        .glitch-effect {
+            position: relative;
+        }
+        
+        .glitch-effect:hover::before {
+            content: attr(data-text);
+            position: absolute;
+            left: -2px;
+            text-shadow: 2px 0 #00ff00;
+            color: #800000;
+            background: #F0E0D0;
+            overflow: hidden;
+            animation: glitch-1 2s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-1 {
+            0% { clip: rect(10px, 300px, 20px, 0); }
+            20% { clip: rect(5px, 300px, 35px, 0); }
+            40% { clip: rect(25px, 300px, 30px, 0); }
+            60% { clip: rect(15px, 300px, 10px, 0); }
+            80% { clip: rect(30px, 300px, 25px, 0); }
+            100% { clip: rect(20px, 300px, 15px, 0); }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="header" class="glitch-effect" data-text="ZEROCHAN">
+            <h1>ZEROCHAN</h1>
+            <p>Анонимный имиджборд</p>
+        </div>
+        
+        <div class="nav">
+            <a href="/" class="current">Главная</a> | 
+            <a href="/b/">/b/</a> | 
+            <a href="/a/">/a/</a> | 
+            <a href="/g/">/g/</a> | 
+            <a href="/v/">/v/</a> | 
+            <a href="/r9k/">/r9k/</a> | 
+            <a href="/faq/">FAQ</a> | 
+            <a href="/rules/">Правила</a>
+        </div>
+        
+        <!-- Главная страница -->
+        <div id="main-page">
+            <div class="board-list">
+                <div class="board-category">
+                    <h3>Основные</h3>
+                    <div class="board-links">
+                        <div class="board-link"><a href="/b/">/b/ - Без темы</a></div>
+                        <div class="board-link"><a href="/a/">/a/ - Аниме</a></div>
+                        <div class="board-link"><a href="/r9k/">/r9k/ - Робототика</a></div>
+                    </div>
+                </div>
+                
+                <div class="board-category">
+                    <h3>Игры</h3>
+                    <div class="board-links">
+                        <div class="board-link"><a href="/v/">/v/ - Видеоигры</a></div>
+                        <div class="board-link"><a href="/vg/">/vg/ - Обсуждение игр</a></div>
+                        <div class="board-link"><a href="/vr/">/vr/ - Ретро игры</a></div>
+                    </div>
+                </div>
+                
+                <div class="board-category">
+                    <h3>Творчество</h3>
+                    <div class="board-links">
+                        <div class="board-link"><a href="/g/">/g/ - Гифки</a></div>
+                        <div class="board-link"><a href="/w/">/w/ - Валлпейперы</a></div>
+                        <div class="board-link"><a href="/art/">/art/ - Арт</a></div>
+                    </div>
+                </div>
+                
+                <div class="board-category">
+                    <h3>Технологии</h3>
+                    <div class="board-links">
+                        <div class="board-link"><a href="/tech/">/tech/ - Технологии</a></div>
+                        <div class="board-link"><a href="/sci/">/sci/ - Наука</a></div>
+                        <div class="board-link"><a href="/prog/">/prog/ - Программирование</a></div>
+                    </div>
+                </div>
+                
+                <div class="board-category">
+                    <h3>Общение</h3>
+                    <div class="board-links">
+                        <div class="board-link"><a href="/soc/">/soc/ - Общение</a></div>
+                        <div class="board-link"><a href="/pol/">/pol/ - Политика</a></div>
+                        <div class="board-link"><a href="/his/">/his/ - История</a></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <div>
+                    <span id="global-stats">ZEROCHAN v0.4 | 2023 | Онлайн: <span id="online-count">1</span> | Постов: <span id="total-posts">0</span> | <a href="#" onclick="showStatsModal()">Статистика</a></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Страница раздела /b/ (скрыта по умолчанию) -->
+        <div id="board-page" style="display: none;">
+            <div id="threads-container">
+                <!-- Посты будут добавляться здесь -->
+            </div>
+            
+            <div class="reply-form">
+                <form id="post-form" onsubmit="return submitPost()">
+                    <table class="form-table">
+                        <tr>
+                            <td class="form-label">Имя:</td>
+                            <td><input type="text" name="name" id="post-name" value="Аноним" /></td>
+                        </tr>
+                        <tr>
+                            <td class="form-label">Трипкод:</td>
+                            <td><input type="password" name="tripcode" id="post-tripcode" placeholder="!пароль" /></td>
+                        </tr>
+                        <tr>
+                            <td class="form-label">Сообщение:</td>
+                            <td><textarea name="message" id="post-message" placeholder="Введите текст..."></textarea></td>
+                        </tr>
+                        <tr>
+                            <td class="form-label">Файл:</td>
+                            <td>
+                                <input type="file" name="file" id="post-file" />
+                                <div id="file-preview" style="display: none; margin-top: 5px;">
+                                    <img id="preview-image" src="" style="max-width: 100px; max-height: 100px; border: 1px solid #800000;" class="pixel-art" />
+                                    <button type="button" onclick="clearFile()" style="margin-left: 5px;">×</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" value="Отправить" /></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            
+            <div class="footer">
+                <div>
+                    <span id="board-stats">/b/ | Онлайн: <span id="board-online">1</span> | Постов: <span id="board-posts">0</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно для модерации -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-title" id="modal-title">Модерация</div>
+            <div id="modal-body">
+                <input type="text" id="modal-input" class="modal-input" placeholder="Причина..." />
+                <input type="password" id="modal-password" class="modal-input" placeholder="Пароль модератора..." />
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-button" onclick="hideModal()">Отмена</button>
+                <button class="modal-button" id="modal-action-button" onclick="performModAction()">OK</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно статистики -->
+    <div id="stats-modal" class="modal">
+        <div class="modal-content" style="width: 400px;">
+            <div class="modal-title">Статистика</div>
+            <div id="stats-body">
+                <h3>Глобальная статистика:</h3>
+                <p>Всего постов: <span id="stats-total-posts">0</span></p>
+                <p>Пользователей онлайн: <span id="stats-online">1</span></p>
+                <p>Активных тредов: <span id="stats-active-threads">0</span></p>
+                
+                <h3>Статистика по доскам:</h3>
+                <div id="board-stats-list"></div>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-button" onclick="hideStatsModal()">Закрыть</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Блок статистики в реальном времени -->
+    <div class="stats" id="live-stats">
+        Онлайн: <span id="live-online">1</span> | Постов: <span id="live-posts">0</span>
+    </div>
+    
+    <script type="text/javascript">
+        // === ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ===
+        let currentModalAction = '';
+        let currentPostId = 0;
+        let currentBoard = '';
+        let onlineUsers = 1;
+        let totalPosts = 0;
+        let boardPosts = {};
+        let activeThreads = {};
+        let postsData = {};
+        let userActivityTimeout;
+        
+        // Инициализация при загрузке страницы
+        window.onload = function() {
+            // Инициализация данных
+            initData();
+            
+            // Проверяем URL для определения текущей страницы
+            const path = window.location.pathname;
+            
+            if (path === '/' || path === '') {
+                showMainPage();
+            } else if (path.startsWith('/b/')) {
+                showBoardPage('b');
+            } else if (path.startsWith('/a/')) {
+                showBoardPage('a');
+            } else if (path.startsWith('/g/')) {
+                showBoardPage('g');
+            } else if (path.startsWith('/v/')) {
+                showBoardPage('v');
+            } else if (path.startsWith('/r9k/')) {
+                showBoardPage('r9k');
+            }
+            
+            // Инициализация онлайн-пользователей
+            updateOnlineUsers();
+            
+            // Прослушивание изменений файла
+            document.getElementById('post-file').addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    const file = e.target.files[0];
+                    if (file.type.match('image.*')) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            document.getElementById('file-preview').style.display = 'block';
+                            document.getElementById('preview-image').src = event.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+            });
+            
+            // Обновление статистики каждые 5 секунд
+            setInterval(updateStats, 5000);
+            
+            // Добавляем эффект глитча для заголовков
+            document.querySelectorAll('.board-category h3').forEach(el => {
+                el.classList.add('glitch-effect');
+                el.setAttribute('data-text', el.textContent);
+            });
+        };
+        
+        // Инициализация данных из localStorage
+        function initData() {
+            // Загрузка данных из localStorage
+            if (localStorage.getItem('zerochan_posts')) {
+                postsData = JSON.parse(localStorage.getItem('zerochan_posts'));
+            } else {
+                postsData = {};
+                // Инициализация досок
+                ['b', 'a', 'g', 'v', 'r9k'].forEach(board => {
+                    postsData[board] = [];
+                });
+            }
+            
+            if (localStorage.getItem('zerochan_stats')) {
+                const stats = JSON.parse(localStorage.getItem('zerochan_stats'));
+                totalPosts = stats.totalPosts || 0;
+                boardPosts = stats.boardPosts || {};
+                activeThreads = stats.activeThreads || {};
+            } else {
+                // Инициализация статистики
+                totalPosts = 0;
+                boardPosts = {};
+                activeThreads = {};
+                ['b', 'a', 'g', 'v', 'r9k'].forEach(board => {
+                    boardPosts[board] = 0;
+                    activeThreads[board] = 0;
+                });
+                saveStats();
+            }
+            
+            updateStatsDisplay();
+        }
+        
+        // Сохранение статистики
+        function saveStats() {
+            const stats = {
+                totalPosts: totalPosts,
+                boardPosts: boardPosts,
+                activeThreads: activeThreads
+            };
+            localStorage.setItem('zerochan_stats', JSON.stringify(stats));
+        }
+        
+        // Сохранение постов
+        function savePosts() {
+            localStorage.setItem('zerochan_posts', JSON.stringify(postsData));
+        }
+        
+        // Обновление статистики онлайн
+        function updateOnlineUsers() {
+            // Проверяем, есть ли уже отметка о посещении
+            if (!sessionStorage.getItem('zerochan_visited')) {
+                onlineUsers++;
+                sessionStorage.setItem('zerochan_visited', 'true');
+            }
+            
+            // Обновляем отображение
+            document.querySelectorAll('#online-count, #board-online, #live-online, #stats-online').forEach(el => {
+                el.textContent = onlineUsers;
+            });
+            
+            // Сбрасываем таймер активности
+            if (userActivityTimeout) clearTimeout(userActivityTimeout);
+            userActivityTimeout = setTimeout(() => {
+                onlineUsers = Math.max(1, onlineUsers - 1);
+                updateOnlineUsers();
+            }, 300000); // 5 минут неактивности
+        }
+        
+        // Обновление статистики
+        function updateStats() {
+            updateOnlineUsers();
+            updateStatsDisplay();
+        }
+        
+        // Обновление отображения статистики
+        function updateStatsDisplay() {
+            // Глобальная статистика
+            document.getElementById('total-posts').textContent = totalPosts;
+            document.getElementById('live-posts').textContent = totalPosts;
+            document.getElementById('stats-total-posts').textContent = totalPosts;
+            document.getElementById('stats-active-threads').textContent = Object.values(activeThreads).reduce((a, b) => a + b, 0);
+            
+            // Статистика по доскам
+            if (currentBoard) {
+                document.getElementById('board-posts').textContent = boardPosts[currentBoard] || 0;
+            }
+            
+            // Статистика в модальном окне
+            let boardStatsHTML = '';
+            for (const board in boardPosts) {
+                boardStatsHTML += `<p>/${board}/: ${boardPosts[board]} постов, ${activeThreads[board] || 0} тредов</p>`;
+            }
+            document.getElementById('board-stats-list').innerHTML = boardStatsHTML;
+        }
+        
+        // ПОКАЗАТЬ ГЛАВНУЮ СТРАНИЦУ
+        function showMainPage() {
+            document.getElementById('main-page').style.display = 'block';
+            document.getElementById('board-page').style.display = 'none';
+            
+            // Обновляем активную ссылку в навигации
+            document.querySelectorAll('.nav a').forEach(link => {
+                link.classList.remove('current');
+                if (link.getAttribute('href') === '/') {
+                    link.classList.add('current');
+                }
+            });
+            
+            // Обновляем заголовок
+            document.querySelector('#header h1').textContent = 'ZEROCHAN :: Главная';
+            document.title = 'ZEROCHAN :: Главная';
+            
+            currentBoard = '';
+        }
+        
+        // ПОКАЗАТЬ СТРАНИЦУ РАЗДЕЛА
+        function showBoardPage(board) {
+            document.getElementById('main-page').style.display = 'none';
+            document.getElementById('board-page').style.display = 'block';
+            currentBoard = board;
+            
+            // Обновляем активную ссылку в навигации
+            document.querySelectorAll('.nav a').forEach(link => {
+                link.classList.remove('current');
+                if (link.getAttribute('href') === '/' + board + '/') {
+                    link.classList.add('current');
+                }
+            });
+            
+            // Обновляем заголовок
+            const boardNames = {
+                'b': 'Без темы',
+                'a': 'Аниме',
+                'g': 'Гифки',
+                'v': 'Видеоигры',
+                'r9k': 'Робототика'
+            };
+            document.querySelector('#header h1').textContent = 'ZEROCHAN :: /' + board + '/ - ' + boardNames[board];
+            document.title = 'ZEROCHAN :: /' + board + '/';
+            
+            // Загружаем посты для этой доски
+            loadPosts(board);
+            
+            // Обновляем статистику доски
+            document.getElementById('board-posts').textContent = boardPosts[board] || 0;
+        }
+        
+        // ЗАГРУЗКА ПОСТОВ
+        function loadPosts(board) {
+            const container = document.getElementById('threads-container');
+            container.innerHTML = '';
+            
+            if (postsData[board] && postsData[board].length > 0) {
+                postsData[board].forEach(post => {
+                    container.appendChild(createPostElement(post));
+                });
+            } else {
+                // Если постов нет, показываем заглушку
+                const placeholder = document.createElement('div');
+                placeholder.className = 'thread';
+                placeholder.innerHTML = '<div class="post"><div class="post-message">Здесь пока нет ни одного поста. Будьте первым!</div></div>';
+                container.appendChild(placeholder);
+            }
+        }
+        
+        // СОЗДАНИЕ ЭЛЕМЕНТА ПОСТА
+        function createPostElement(post) {
+            const thread = document.createElement('div');
+            thread.className = 'thread';
+            
+            const postElement = document.createElement('div');
+            postElement.className = 'post';
+            postElement.id = 'post-' + post.id;
+            
+            let headerHTML = `<div class="post-header">
+                <span class="post-name">${post.name || 'Аноним'}</span>`;
+            
+            if (post.tripcode) {
+                headerHTML += ` <span class="post-trip">${post.tripcode}</span>`;
+            }
+            
+            headerHTML += ` <span class="post-id"><a href="#${post.id}">№${post.id}</a></span>
+                <div class="mod-panel">
+                    [<a href="#" onclick="showModal('delete', ${post.id})">Удалить</a>]
+                    [<a href="#" onclick="showModal('ban', ${post.id})">Бан</a>]
+                </div>
+            </div>`;
+            
+            let fileHTML = '';
+            if (post.file) {
+                fileHTML = `<div class="post-file">
+                    <img src="${post.file}" alt="Прикрепленное изображение" class="pixel-art" />
+                    <div class="post-file-info">
+                        Файл: image.png (${Math.floor(Math.random() * 100) + 100} КБ, ${Math.floor(Math.random() * 300) + 200}x${Math.floor(Math.random() * 300) + 200}
+                    </div>
+                </div>`;
+            }
+            
+            let messageHTML = post.message.replace(/\n/g, '<br />');
+            // Обработка ссылок
+            messageHTML = messageHTML.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+            // Обработка ответов
+            messageHTML = messageHTML.replace(/>>(\d+)/g, '<a href="#$1" class="reply-link">>>$1</a>');
+            
+            postElement.innerHTML = headerHTML + fileHTML + `<div class="post-message">${messageHTML}</div>`;
+            thread.appendChild(postElement);
+            
+            return thread;
+        }
+        
+        // ОТПРАВКА ПОСТА
+        function submitPost() {
+            const name = document.getElementById('post-name').value.trim() || 'Аноним';
+            const tripcode = document.getElementById('post-tripcode').value.trim();
+            const message = document.getElementById('post-message').value.trim();
+            const fileInput = document.getElementById('post-file');
+            
+            if (!message && fileInput.files.length === 0) {
+                alert('Сообщение или файл обязательны для отправки!');
+                return false;
+            }
+            
+            // Генерируем ID поста
+            const postId = Date.now();
+            
+            // Создаем объект поста
+            const post = {
+                id: postId,
+                board: currentBoard,
+                name: name,
+                message: message,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Добавляем трипкод, если есть
+            if (tripcode) {
+                post.tripcode = generateTripcode(tripcode);
+            }
+            
+            // Обработка файла
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                if (file.type.match('image.*')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        post.file = e.target.result;
+                        savePostToStorage(post);
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    alert('Поддерживаются только изображения!');
+                    return false;
+                }
+            } else {
+                savePostToStorage(post);
+            }
+            
+            // Очищаем форму
+            document.getElementById('post-message').value = '';
+            document.getElementById('post-file').value = '';
+            document.getElementById('file-preview').style.display = 'none';
+            
+            return false;
+        }
+        
+        // СОХРАНЕНИЕ ПОСТА В ХРАНИЛИЩЕ
+        function savePostToStorage(post) {
+            // Добавляем пост в данные
+            if (!postsData[post.board]) {
+                postsData[post.board] = [];
+            }
+            postsData[post.board].unshift(post);
+            
+            // Обновляем статистику
+            totalPosts++;
+            boardPosts[post.board] = (boardPosts[post.board] || 0) + 1;
+            
+            // Если это первый пост в треде, увеличиваем счетчик активных тредов
+            if (post.message.includes('>>>')) {
+                activeThreads[post.board] = (activeThreads[post.board] || 0) + 1;
+            }
+            
+            // Сохраняем данные
+            savePosts();
+            saveStats();
+            
+            // Обновляем отображение
+            updateStatsDisplay();
+            
+            // Если мы на нужной доске, добавляем пост
+            if (currentBoard === post.board) {
+                const container = document.getElementById('threads-container');
+                container.insertBefore(createPostElement(post), container.firstChild);
+            }
+        }
+        
+        // ОЧИСТКА ФАЙЛА
+        function clearFile() {
+            document.getElementById('post-file').value = '';
+            document.getElementById('file-preview').style.display = 'none';
+        }
+        
+        // === ГЕНЕРАТОР ТРИПКОДОВ ===
+        function generateTripcode(password) {
+            if (!password) return "";
+            const salt = (password + "H..").substring(1, 3).replace(/[^\.-z]/g, ".");
+            const trip = btoa(password + salt).slice(-10);
+            return "!" + trip;
+        }
+        
+        // === СЛУЧАЙНЫЕ НИКИ ===
+        const names = ["Аноним", "Гость", "Хакер", "Вебмастер", "Юзер", "Нуб", "Олдфаг", "Читатель"];
+        document.getElementById('post-name').value = names[Math.floor(Math.random() * names.length)];
+        
+        // === МОДАЛЬНЫЕ ОКНА ===
+        function showModal(action, postId) {
+            currentModalAction = action;
+            currentPostId = postId;
+            
+            const modal = document.getElementById('modal');
+            const title = document.getElementById('modal-title');
+            const actionButton = document.getElementById('modal-action-button');
+            
+            if (action === 'delete') {
+                title.textContent = 'Удаление поста №' + postId;
+                actionButton.textContent = 'Удалить';
+            } else if (action === 'ban') {
+                title.textContent = 'Бан пользователя из поста №' + postId;
+                actionButton.textContent = 'Забанить';
+            }
+            
+            modal.style.display = 'flex';
+        }
+        
+        function hideModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+        
+        function showStatsModal() {
+            document.getElementById('stats-modal').style.display = 'flex';
+            return false;
+        }
+        
+        function hideStatsModal() {
+            document.getElementById('stats-modal').style.display = 'none';
+        }
+        
+        function performModAction() {
+            const password = document.getElementById('modal-password').value;
+            const reason = document.getElementById('modal-input').value;
+            
+            // Проверка пароля модератора (в реальной системе это должно быть на сервере)
+            if (password !== 'modpass') {
+                alert('Неверный пароль модератора!');
+                return;
+            }
+            
+            if (currentModalAction === 'delete') {
+                // Удаляем пост из хранилища
+                if (postsData[currentBoard]) {
+                    postsData[currentBoard] = postsData[currentBoard].filter(post => post.id !== currentPostId);
+                    savePosts();
+                    
+                    // Удаляем пост из DOM
+                    const postElement = document.getElementById('post-' + currentPostId);
+                    if (postElement) {
+                        postElement.parentElement.remove();
+                    }
+                    
+                    // Обновляем статистику
+                    totalPosts = Math.max(0, totalPosts - 1);
+                    boardPosts[currentBoard] = Math.max(0, (boardPosts[currentBoard] || 0) - 1);
+                    saveStats();
+                    updateStatsDisplay();
+                }
+                
+                alert('Пост №' + currentPostId + ' удален по причине: ' + reason);
+            } else if (currentModalAction === 'ban') {
+                alert('Пользователь из поста №' + currentPostId + ' забанен по причине: ' + reason);
+            }
+            
+            hideModal();
+        }
+        
+        // === ПЕРЕКЛЮЧЕНИЕ РАЗДЕЛОВ ===
+        // Назначаем обработчики для ссылок разделов
+        document.querySelectorAll('.nav a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && href !== '#' && !href.startsWith('/faq') && !href.startsWith('/rules')) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    if (href === '/') {
+                        showMainPage();
+                        history.pushState(null, 'ZEROCHAN :: Главная', '/');
+                    } else {
+                        const board = href.split('/')[1];
+                        showBoardPage(board);
+                        history.pushState(null, 'ZEROCHAN :: /' + board + '/', '/' + board + '/');
+                    }
+                });
+            }
+        });
+        
+        // Обработка кнопки "Назад" в браузере
+        window.onpopstate = function(event) {
+            const path = window.location.pathname;
+            
+            if (path === '/' || path === '') {
+                showMainPage();
+            } else {
+                const board = path.split('/')[1];
+                showBoardPage(board);
+            }
+        };
+        
+        // Отслеживание активности пользователя
+        document.addEventListener('mousemove', updateOnlineUsers);
+        document.addEventListener('keypress', updateOnlineUsers);
+    </script>
+</body>
+</html>
